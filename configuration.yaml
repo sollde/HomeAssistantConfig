@@ -1,0 +1,127 @@
+homeassistant:
+  latitude: !secret s_latitude
+  longitude: !secret s_longitude
+  unit_system: metric
+  time_zone: Asia/Shanghai
+  name: Home
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+# default_config:
+config:
+frontend:
+history:
+logbook:
+mobile_app:
+person:
+ssdp:
+sun:
+#updater:
+zeroconf:
+ios:
+system_health:
+
+http:
+  # For extra security set this to only accept connections on localhost if NGINX is on the same machine
+  #server_host: ::0
+  server_host: 0.0.0.0
+  server_port: 8123
+  # Update this line to be your domain
+  #base_url: !secret base_url
+  #use_x_forwarded_for: true
+  # You must set the trusted proxy IP address so that Home Assistant will properly accept connections
+  # Set this to your NGINX machine IP, or localhost if hosted on the same machine.
+  #trusted_proxies: ::1
+  #api_password: !secret http_password
+  #ssl_certificate: !secret ssl_certificate
+  #ssl_key: !secret ssl_key
+  #cors_allowed_origins:
+  #  - !secret base_url
+  #ip_ban_enabled: True
+  #login_attempts_threshold: 5
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+homekit:
+
+
+# Example configuration.yaml entry
+#no_ip:
+#  domain: hassmm.hopto.org
+#  username: 
+#  password: 
+
+# 天猫精灵
+#molobot:
+#  phone: !secret molo_phone
+#  password: !secret molo_password
+
+# 墨澜地图panel_iframe:
+#inkwavemap:
+#  title: '墨澜地图'
+#  icon: mdi:map
+#  url: /local/custom_ui/inkwavemap/index.html
+#
+#panel_custom:
+#  - name: inkwavemap
+#    sidebar_title: '墨澜地图'
+#    sidebar_icon: mdi:map
+#    url_path: inkwavemap
+
+
+# device_tracker:
+#   - platform: tplink
+#     host: 192.168.1.1 #路由器Ip
+#     username: ***** #管理员账号
+#     password: ****** #管理员密码
+#     track_new_devices: no #是否自动添加新设备
+
+#sensor:
+#  - platform: HeWeather
+#    city: !secret weather_city
+#    appkey: !secret weather_appkey
+#    options:
+#      - fl
+#      - tmp
+#      - cond_txt
+#      - wind_spd
+#      - hum
+#      - pcpn
+#      - pres
+#      - vis
+#      - wind_sc
+#      - aqi
+#      - main
+#      - qlty
+#      - pm10
+#      - pm25
+#      - comf
+#      - cw
+#      - drsg
+#      - flu
+#      - sport
+#      - trav
+#      - uv
+#      - wind_dir
+#      - tmp_max
+#      - tmp_min
+#      - pop
+
+device_tracker:
+  - platform: ping
+    hosts:
+      phone1: !secret phone1
+      phone2: !secret phone2
+      myphone: !secret me
+      dc1: !secret dc1
+    count: 5
+    interval_seconds: 30
+    consider_home: 120
+
+shell_command:
+    frpc: nohup /usr/bin/frpc -c /etc/frp/frpc.ini

@@ -1,0 +1,55 @@
+- id: '1652290839294'
+  alias: 煮早饭
+  description: ''
+  trigger:
+  - platform: time
+    at: 05:50:00
+  condition: []
+  action:
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id: switch.dc1_009633_4
+  mode: single
+- id: '1652291483437'
+  alias: 关电饭煲
+  description: ''
+  trigger:
+  - platform: time
+    at: 06:25:00
+  condition: []
+  action:
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id:
+      - switch.dc1_009633_4
+      - switch.dc1_009633_1
+  mode: single
+- id: '1652321787593'
+  alias: frp
+  description: ''
+  trigger:
+  - platform: homeassistant
+    event: start
+  condition: []
+  action:
+  - service: shell_command.frpc
+    data: {}
+  mode: single
+- id: '1652355155950'
+  alias: Send notification
+  description: ''
+  trigger:
+  - platform: zone
+    entity_id: person.phone2,person.xuhui,person.phone1
+    zone: zone.shome
+    event: enter
+  - platform: zone
+    entity_id: person.phone1,person.phone2,person.myphone
+    zone: zone.shome
+    event: leave
+  action:
+  - service: notify.notify
+    data:
+      message: hello
